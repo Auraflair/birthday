@@ -14,107 +14,124 @@
   src: url('/Poison Apple Regular DEMO.ttf') format('truetype');
 }
 
-  body {
-    margin: 0;
-    padding: 0;
-    background: radial-gradient(ellipse at center, #0f0f1b 0%, #000000 100%);
-    color: #fff;
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-    text-align: center;
-  }
-  h1 {
-    font-size: 3rem;
-    margin-top: 50px;
-    background: linear-gradient(90deg, #ff80ab, #facc15);
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: shimmer 3s infinite;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(ellipse at center, #0f0f1b 0%, #000000 100%);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  text-align: center;
+}
 
-  @keyframes shimmer {
-    0% {background-position: -500px;}
-    100% {background-position: 500px;}
-  }
-    .countdown-label {
-        font-size: 2rem;
-        color: #d47e7e;
-        margin-top: 20px;
-        font-family: 'TwoRaceItalic-axwAg';
-    }
-  #countdown {
-    font-size: 5rem;
-    color: #ff3300;
-    font-family: 'TwoRaceItalic-axwAg';
-  }
+h1 {
+  font-size: 3rem;
+  margin-top: 50px;
+  background: linear-gradient(90deg, #ff80ab, #facc15);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmer 3s infinite;
+}
 
-  #message {
-    display: none;
-    color: #ff80ab;
-    margin-top: 30px;
-    font-family: 'Poison Apple Regular DEMO';
-    font-size: 0.8rem;
-    max-width: 600px;
-    margin-left: 10%;
-    margin-right: 10%;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-    .click-here {
-    margin-top: 30px;
+@keyframes shimmer {
+  0% { background-position: -500px; }
+  100% { background-position: 500px; }
+}
+
+.countdown-label {
+  font-size: 2rem;
+  color: #d47e7e;
+  margin-top: 20px;
+  font-family: 'TwoRaceItalic-axwAg';
+}
+
+#countdown {
+  font-size: 5rem;
+  color: #ff3300;
+  font-family: 'TwoRaceItalic-axwAg';
+}
+
+#message {
+  display: none;
+  color: #ff80ab;
+  margin-top: 30px;
+  font-family: 'Poison Apple Regular DEMO';
+  font-size: 0.8rem;
+  max-width: 600px;
+  margin-left: 10%;
+  margin-right: 10%;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.click-here {
+  margin-top: 30px;
 }
 
 .special-btn {
-    display: inline-block;
-    padding: 3px 8px;
-    padding-top: 3px;
-    background: linear-gradient(45deg, #1d3a3a, #292446);
-    color: white;
-    font-family: sans-serif;
-    font-size: 1.2rem;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+  padding: 3px 8px;
+  background: linear-gradient(45deg, #1d3a3a, #292446);
+  color: white;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: pulse 1.5s infinite;
 }
 
 .special-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255, 128, 171, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 128, 171, 0.9);
 }
 
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    pointer-events: none;
-  }
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 128, 171, 0.5); }
+  50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 128, 171, 1); }
+  100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 128, 171, 0.5); }
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+}
 </style>
 </head>
 <body>
 
 <h1></h1>
-<div id="countdown"><div class="countdown-label">COUNTDOWN</div> <br><span id="timer">5</span></div>
+<div id="countdown">
+  <div class="countdown-label">COUNTDOWN</div>
+  <br><span id="timer">5</span>
+</div>
+
 <div id="message">
   <h2>Happy Birthday Chu!</h2>
-  <p>Dear chu , wishing you a day filled with happiness, surprises, and unforgettable memories. You are truly special, and may this year bring all your dreams closer to reality. Stay awesome and keep shining like the star you are! ✨🎂</p>
+  <p>Dear chu, wishing you a day filled with happiness, surprises, and unforgettable memories. You are truly special, and may this year bring all your dreams closer to reality. Stay awesome and keep shining like the star you are! ✨🎂</p>
 </div>
 
 <div class="click-here" id="buttonContainer" style="display: none;">
-  <a href="message.html" class="special-btn">get special message</a>
+  <a href="message.html" class="special-btn" id="specialBtn">get special message</a>
 </div>
 
 <canvas id="confettiCanvas"></canvas>
 
+<audio id="popSound" src="pop.mp3" preload="auto"></audio>
+
 <script>
 // Countdown
-let timeLeft = 10; // Set countdown time in seconds
+let timeLeft = 10;
 const timerEl = document.getElementById('timer');
 const messageEl = document.getElementById('message');
 const buttonContainer = document.getElementById('buttonContainer');
+const popSound = document.getElementById('popSound');
 
 const countdown = setInterval(() => {
   timeLeft--;
@@ -128,7 +145,7 @@ const countdown = setInterval(() => {
   }
 }, 1000);
 
-// Continuous Confetti Rain
+// Confetti Function
 function startConfetti() {
   const canvas = document.getElementById('confettiCanvas');
   const ctx = canvas.getContext('2d');
@@ -172,7 +189,6 @@ function startConfetti() {
   }
 
   draw();
-
   window.addEventListener('resize', resizeCanvas);
 
   function resizeCanvas() {
@@ -180,6 +196,14 @@ function startConfetti() {
     canvas.height = window.innerHeight;
   }
 }
+
+// Button Sound
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('specialBtn');
+  btn.addEventListener('click', () => {
+    popSound.play();
+  });
+});
 </script>
 
 </body>
