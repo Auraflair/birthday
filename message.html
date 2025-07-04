@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Chu 🎂✨</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-image: url('birthday-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: 'Segoe UI', sans-serif;
+    padding-top: 50px;
+    position: relative;
+  }
+
+  .fixed-zone {
+    width: 90%;
+    max-width: 600px;
+    height: 50vh;
+    border: 2px solid rgba(2, 0, 0, 0.5); 
+    border-radius: 15px;
+    overflow-y: auto;
+    padding: 15px;
+    backdrop-filter: blur(1px);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .box {
+    background: rgba(70, 160, 200, 0.95);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  h1 {
+    background: rgba(70, 160, 200, 0.95);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    font-size: 18px;
+    text-align: left;
+  }
+
+  .buttons {
+    position: absolute;
+    top: 60vh;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    position: relative;
+    padding: 10px 20px;
+    background: rgba(70, 160, 200, 0.95);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+
+  .btn svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .btn rect {
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    rx: 8;
+    ry: 8;
+  }
+
+  .animate-border rect {
+    animation: strokeDraw 3s linear forwards;
+  }
+
+  @keyframes strokeDraw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body>
+
+<div class="fixed-zone">
+  <div class="container">
+    <h1>Happiest Birthday to the most special person in my chats — Chu! 🎂✨</h1>
+
+    <div class="box">
+      You seriously have this rare magic ✨ — turning even the simplest conversations 💬 into moments I never forget 🫶.
+    </div>
+
+    <div class="box">
+      The way you randomly say "Okay" 😉, or your cute little stories 🐣 hidden behind "I'm fine" 😌 — trust me, I notice them all 👀.
+    </div>
+
+    <div class="box">
+      You’ve got that perfect mix of funny 😂, real 💯, and unexpectedly sweet 🍬 vibes that literally light up my day ☀️ — even through just words 💌 or late-night chats 🌙.
+    </div>
+
+    <div class="box">
+      So today’s not just your birthday 🎉 — it's a reminder that someone as unique as you 🌟 deserves every little happiness 🥳 this world 🌍 can offer.
+    </div>
+
+    <div class="box">
+      Stay as crazy 🤪, as honest ❤️, and as YOU as you are — because that’s exactly what makes you irreplaceable 💖.
+    </div>
+
+    <div class="box">
+      And yeah, keep bringing that ‘Chu energy’ ⚡ everywhere you go — it makes life way better 🌈.
+    </div>
+
+    <div class="box">
+      Enjoy your day to the fullest! You deserve it 🥂🎁🎊.
+    </div>
+  </div>
+</div>
+
+<div class="buttons">
+  <button class="btn" id="confettiBtn" onclick="startConfetti()">🎊 Confetti Rain
+    <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
+  </button>
+
+  <a href="PIYUSH-NOTES.jpg" download class="btn" id="downloadBtn">📥 Download Notes
+    <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
+  </a>
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+
+<audio id="popSound" src="pop.mp3"></audio>
+
+<script>
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  let confetti = [];
+  let animationFrame;
+  let running = false;
+
+  const popSound = document.getElementById('popSound');
+
+  function randomColor() {
+    const colors = ['#ff0', '#f0f', '#0ff', '#0f0', '#f00', '#00f', '#ffa500'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  function startConfetti() {
+    if (running) return;
+    running = true;
+    popSound.currentTime = 0;
+    popSound.play();
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    confetti = [];
+    for (let i = 0; i < 150; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        size: Math.random() * 8 + 4,
+        color: randomColor(),
+        speed: Math.random() * 3 + 2
+      });
+    }
+    animateConfetti();
+
+    setTimeout(() => {
+      cancelAnimationFrame(animationFrame);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      running = false;
+    }, 13000);  // 13 seconds rain
+  }
+
+  function animateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(p => {
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+      p.y += p.speed;
+      if (p.y > canvas.height) p.y = -10;
+    });
+    animationFrame = requestAnimationFrame(animateConfetti);
+  }
+
+  const btn1 = document.getElementById("confettiBtn");
+  const btn2 = document.getElementById("downloadBtn");
+
+  function setupButtonBorder(btn) {
+    const rect = btn.querySelector("rect");
+    const width = btn.offsetWidth;
+    const height = btn.offsetHeight;
+    const perimeter = 2 * (width + height);
+
+    rect.setAttribute("stroke-dasharray", perimeter);
+    rect.setAttribute("stroke-dashoffset", perimeter);
+  }
+
+  setupButtonBorder(btn1);
+  setupButtonBorder(btn2);
+
+  window.addEventListener('resize', () => {
+    setupButtonBorder(btn1);
+    setupButtonBorder(btn2);
+  });
+
+  function animateLoop() {
+    btn1.classList.add("animate-border");
+    setTimeout(() => {
+      btn1.classList.remove("animate-border");
+      btn2.classList.add("animate-border");
+      setTimeout(() => {
+        btn2.classList.remove("animate-border");
+        animateLoop();
+      }, 3000);
+    }, 3000);
+  }
+
+  animateLoop();
+</script>
+
+</body>
+</html>

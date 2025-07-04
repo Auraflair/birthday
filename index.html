@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Chu 🎂</title>
+<style>
+@font-face {
+  font-family: 'TwoRaceItalic-axwAg';
+  src: url('/TwoRaceItalic-axwAg.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poison Apple Regular DEMO';
+  src: url('/Poison Apple Regular DEMO.ttf') format('truetype');
+}
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(ellipse at center, #0f0f1b 0%, #000000 100%);
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    text-align: center;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-top: 50px;
+    background: linear-gradient(90deg, #ff80ab, #facc15);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {background-position: -500px;}
+    100% {background-position: 500px;}
+  }
+    .countdown-label {
+        font-size: 2rem;
+        color: #d47e7e;
+        margin-top: 20px;
+        font-family: 'TwoRaceItalic-axwAg';
+    }
+  #countdown {
+    font-size: 5rem;
+    color: #ff3300;
+    font-family: 'TwoRaceItalic-axwAg';
+  }
+
+  #message {
+    display: none;
+    color: #ff80ab;
+    margin-top: 30px;
+    font-family: 'Poison Apple Regular DEMO';
+    font-size: 0.8rem;
+    max-width: 600px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+    .click-here {
+    margin-top: 30px;
+}
+
+.special-btn {
+    display: inline-block;
+    padding: 3px 8px;
+    padding-top: 3px;
+    background: linear-gradient(45deg, #1d3a3a, #292446);
+    color: white;
+    font-family: sans-serif;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.special-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 128, 171, 0.9);
+}
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<h1></h1>
+<div id="countdown"><div class="countdown-label">COUNTDOWN</div> <br><span id="timer">5</span></div>
+<div id="message">
+  <h2>Happy Birthday Chu!</h2>
+  <p>Dear chu , wishing you a day filled with happiness, surprises, and unforgettable memories. You are truly special, and may this year bring all your dreams closer to reality. Stay awesome and keep shining like the star you are! ✨🎂</p>
+</div>
+
+<div class="click-here" id="buttonContainer" style="display: none;">
+  <a href="message.html" class="special-btn">get special message</a>
+</div>
+
+<canvas id="confettiCanvas"></canvas>
+
+<script>
+// Countdown
+let timeLeft = 10; // Set countdown time in seconds
+const timerEl = document.getElementById('timer');
+const messageEl = document.getElementById('message');
+const buttonContainer = document.getElementById('buttonContainer');
+
+const countdown = setInterval(() => {
+  timeLeft--;
+  timerEl.textContent = timeLeft;
+  if (timeLeft <= 0) {
+    clearInterval(countdown);
+    document.getElementById('countdown').style.display = 'none';
+    messageEl.style.display = 'block';
+    buttonContainer.style.display = 'block';
+    startConfetti();
+  }
+}, 1000);
+
+// Continuous Confetti Rain
+function startConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  resizeCanvas();
+
+  const confetti = Array.from({length: 200}, () => createParticle());
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height,
+      r: Math.random() * 6 + 4,
+      color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+      speedY: Math.random() * 2 + 1
+    };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(p => {
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    update();
+    requestAnimationFrame(draw);
+  }
+
+  function update() {
+    confetti.forEach(p => {
+      p.y += p.speedY;
+      if (p.y > canvas.height + 10) {
+        p.x = Math.random() * canvas.width;
+        p.y = -10;
+        p.r = Math.random() * 6 + 4;
+        p.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        p.speedY = Math.random() * 2 + 1;
+      }
+    });
+  }
+
+  draw();
+
+  window.addEventListener('resize', resizeCanvas);
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+}
+</script>
+
+</body>
+</html>
